@@ -1,9 +1,23 @@
-import React from 'react'
-import data from '../data';
+import React, { useEffect, useState } from 'react'
+//import data from '../data';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 function HomeScreen(){
+
+    const [products , setProducts] = useState([]);
+
+    //we want run the fuction inside the useEffect one time after rendering the component
+    useEffect(() => {
+
+        const fetchData = async () => {
+            const result = await axios.get('/api/products');
+            setProducts(result.data);
+        }
+        fetchData();
+
+    } , []);
 
     return(
     <div>
@@ -11,7 +25,7 @@ function HomeScreen(){
 
         <div className='products'>
             {
-            data.products.map((product) => (
+            products.map((product) => (
                 <div className='product' key={product.slug}>
                     <Link to={`/product/${product.slug}`}>
                         <img src={product.image} alt={product.name}/>
