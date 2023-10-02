@@ -5,13 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {render} from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { HelmetProvider } from 'react-helmet-async';// to show the product name in the title
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <React.StrictMode>
-    <App />
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+    
   </React.StrictMode>
 
 
