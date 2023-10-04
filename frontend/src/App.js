@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
-import { BrowserRouter , Routes , Route } from 'react-router-dom';
+import { BrowserRouter , Routes , Route, Link } from 'react-router-dom';
 import HomeScreen  from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
-import { Navbar , Container } from 'react-bootstrap';
+import { Navbar , Container, Nav, Badge } from 'react-bootstrap';
 //for LinkContainer we want to install another package => react-router-bootstrap
 import { LinkContainer } from 'react-router-bootstrap';
+import { Store } from './Store';
 
 
 function App() {
+
+  const { state } = useContext(Store);
+  const { cart } = state;
+
+
   return (
   <BrowserRouter>
     <div className='d-flex flex-column site-container'>
@@ -18,6 +24,18 @@ function App() {
             <LinkContainer to="/">
                 <Navbar.Brand>amazon</Navbar.Brand>
             </LinkContainer>
+            <Nav>
+              <Link to='/cart' className='nav-link'>
+                Cart
+                {
+                  cart.cartItems.length > 0 && (
+                    <Badge pill bg='danger'>
+                      {cart.cartItems.length}
+                    </Badge>
+                  )
+                }
+              </Link>
+            </Nav>
           </Container>
         </Navbar>
         

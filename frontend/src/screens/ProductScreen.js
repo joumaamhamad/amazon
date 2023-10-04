@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Rating from '../components/Rating';
@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { getError } from '../utils';
+import { Store } from '../Store';
 
 
 
@@ -61,7 +62,11 @@ function ProductScreen(){
 
     } , [slug]);
 
-    
+    const {state , dispatch: ctxDispatch} = useContext(Store);
+    const addToCartHandler = () => {
+        
+        ctxDispatch({type: 'CART_ADD_ITEM' , payload: {...product , quantity: 1}})
+    }
 
 
 
@@ -128,7 +133,7 @@ function ProductScreen(){
                                         product.countInStock > 0 && (
                                             <ListGroup.Item>
                                                 <div className='d-grid'>
-                                                    <Button variant='primary'>Add To Cart</Button>
+                                                    <Button onClick={addToCartHandler} variant='primary'>Add To Cart</Button>
                                                 </div>
                                             </ListGroup.Item>
                                         )
