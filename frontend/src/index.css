@@ -62,3 +62,8 @@ main {
 .img-large{
   max-width: 100%;
 }
+
+.img-fluid{
+  width: 80px;
+
+}
