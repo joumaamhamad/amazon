@@ -67,3 +67,7 @@ main {
   width: 80px;
 
 }
+
+.small-container{
+  max-width: 600px;
+}
