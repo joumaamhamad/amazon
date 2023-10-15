@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+# mamnou3 7ada ykon 3ndo access 3le(secure)
+.env 
 node_modules
 /.pnp
 .pnp.js
