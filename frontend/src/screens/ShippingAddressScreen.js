@@ -52,6 +52,8 @@ export default function ShippingAddressScreen() {
             country: country,
         }));
 
+        console.log(shippingAddress);
+
         navigate('/payment');
         
     }
