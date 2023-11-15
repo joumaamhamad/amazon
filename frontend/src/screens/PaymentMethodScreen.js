@@ -14,7 +14,9 @@ export default function PaymentMethodScreen() {
         cart: {shippingAddress , paymentMethod }
     } = state;
 
-    const [ paymentMethodName , setPaymentMethod ] = useState(paymentMethod || 'PayPal')
+    //console.log(paymentMethod);
+
+    const [ paymentMethodName , setPaymentMethod ] = useState(paymentMethod || 'Stripe');
 
     useEffect(() => {
         if(!shippingAddress.address){
@@ -27,6 +29,7 @@ export default function PaymentMethodScreen() {
 
         e.preventDefault();
         ctxDispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodName });
+        console.log(paymentMethodName);
         localStorage.setItem('paymentMethod' , paymentMethodName);
         navigate('/placeorder');
     }
@@ -43,14 +46,14 @@ return (
             <Form onSubmit={submitHandler}>
                 <div className='mb-3'>
                     <Form.Check type='radio' id='PayPal' label='PayPal' value='PayPal' checked={paymentMethodName === 'PayPal'} 
-                    onchange={(e) => setPaymentMethod(e.target.value)}>
+                    onChange={(e) => setPaymentMethod(e.target.value)}>
 
                     </Form.Check>
                 </div>
 
                 <div className='mb-3'>
                     <Form.Check type='radio' id='Stripe' label='Stripe' value='Stripe' checked={paymentMethodName === 'Stripe'} 
-                    onchange={(e) => setPaymentMethod(e.target.value)}>
+                    onChange={(e) => setPaymentMethod(e.target.value)}>
 
                     </Form.Check>
                 </div>

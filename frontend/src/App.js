@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import Signup from './screens/Signup';
 import PaymentMethodScreen from './screens/PaymentMethodScreen';
+import PlaceOrderScreen from './screens/PlaceOrderScreen';
 
 
 function App() {
@@ -84,6 +85,7 @@ function App() {
             <Route path='/cart' element={<CartScreen />} />
             <Route path='/signin' element={<Signin/>} />
             <Route path='/signup' element={<Signup/>} />
+            <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route path='/shipping' element={<ShippingAddressScreen/>} />
             <Route path='/payment' element={<PaymentMethodScreen />} />
             <Route path='/' element={<HomeScreen />} />
