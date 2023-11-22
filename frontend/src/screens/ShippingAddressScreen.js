@@ -33,15 +33,20 @@ export default function ShippingAddressScreen() {
     const submitHandler = (e) => {
 
         e.preventDefault();
+        
+        const data =  {
+          fullName: fullName,
+          address: address,
+          city: city,
+          postalCode: postalCode,
+          country: country,
+      }
+
+      console.log("data: " , data);
+
         ctxDispatch({
             type: 'SAVE_SHIPPING_ADDRESS',
-            payload: {
-                fullName,
-                address,
-                city,
-                postalCode,
-                country,
-            },
+            payload: data
         });
 
         localStorage.setItem('shippingAddress' , JSON.stringify({

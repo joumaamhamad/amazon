@@ -6,23 +6,29 @@ import { Store } from '../Store'
 import { useNavigate } from 'react-router-dom';
 
 export default function PaymentMethodScreen() {
+    console.log(localStorage.getItem('shippingAddress'))//true
 
     const navigate = useNavigate();
     const { state , dispatch: ctxDispatch } = useContext(Store);
 
     const {
-        cart: {shippingAddress , paymentMethod }
+        cart
     } = state;
 
     //console.log(paymentMethod);
 
-    const [ paymentMethodName , setPaymentMethod ] = useState(paymentMethod || 'Stripe');
+    console.log("payment screen:", cart.shippingAddress);
 
+    const [ paymentMethodName , setPaymentMethod ] = useState(cart.paymentMethod || 'Stripe');
+
+    
     useEffect(() => {
-        if(!shippingAddress.address){
+        
+        if(!cart.shippingAddress.address){
             navigate('/shipping');
         }
     })
+    
 
 
     const submitHandler = (e) => {
