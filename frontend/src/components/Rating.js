@@ -3,7 +3,7 @@ import React from "react";
 function Rating(props){
     // we want to include that in index.html before the title
 
-    const { rating , numReviews } = props;
+    const { rating , numReviews , caption } = props;
 
     return(
         <div className="rating">
@@ -22,8 +22,13 @@ function Rating(props){
             <span>
                 <i className={rating>=5 ? 'fas fa-star' : rating>=4.5 ? 'fas fa-star-half-alt' : 'far fa-star'}></i>
             </span>
-            <span>{numReviews} reviews</span>
+            {caption ? (
+                <span>{caption}</span>
+            ) : (
+                <span>{' ' + numReviews + ' reviews'}</span>
+            )}
         </div>
+        
 
     )
 }

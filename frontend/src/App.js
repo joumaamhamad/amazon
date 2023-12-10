@@ -22,6 +22,10 @@ import { toast } from 'react-toastify';
 import { getError } from './utils';
 import axios from 'axios';
 import SearchBox from './components/SearchBox';
+import SearchScreen from './screens/SearchScreen';
+import ProtectedRoutes from './components/ProtectedRoutes';
+import DashboardScreen from './screens/DashboardScreen';
+import AdminRoute from './components/AdminRoute';
 
 
 function App() {
@@ -108,6 +112,28 @@ function App() {
                     Sign In
                   </Link>
                 )}
+                {userInfo && userInfo.isAdmin && (
+
+                  <NavDropdown title="Admin" id='admin-nav-drpdown'>
+
+                    <LinkContainer to="/admin/dashboard">
+                      <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                    </LinkContainer>
+
+                    <LinkContainer to="/admin/productlist">
+                      <NavDropdown.Item>Products</NavDropdown.Item>
+                    </LinkContainer>
+
+                    <LinkContainer to="/admin/orderlist">
+                      <NavDropdown.Item>Orders</NavDropdown.Item>
+                    </LinkContainer>
+
+                    <LinkContainer to="/admin/userlist">
+                      <NavDropdown.Item>Users</NavDropdown.Item>
+                    </LinkContainer>
+
+                  </NavDropdown>
+                )}
             </Nav>
             </Navbar.Collapse>
           </Container>
@@ -128,12 +154,15 @@ function App() {
             </Nav.Item>
             {categories.map((category) => (
               <Nav.Item key={category}>
-                <Link
-                  to={`/search?category=${category}`}
+                <LinkContainer
+                  to={{
+                  pathname: '/search',
+                  search: `?category=${category}`,
+                }}
                   onClick={() => setSidebarIsOpen(false)}
                 >
-                  <Nav.Link>{category}</Nav.Link>
-                </Link>
+                  <Nav.Link className='text-white'>-{category}</Nav.Link>
+              </LinkContainer>
               </Nav.Item>
             ))}
           </Nav>
@@ -144,14 +173,24 @@ function App() {
           <Routes>
             <Route path='/product/:slug' element={<ProductScreen />} />
             <Route path='/cart' element={<CartScreen />} />
+            <Route path='/search' element={<SearchScreen/>} />
             <Route path='/signin' element={<Signin/>} />
             <Route path='/signup' element={<Signup/>} />
-            <Route path='/profile' element={<ProfileScreen/>} />
+            <Route path='/profile' element={<ProtectedRoutes> <ProfileScreen/> </ProtectedRoutes>}/>
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
-            <Route path="/order/:id" element={<OrderScreen />} />
-            <Route path="orderhistory" element={<OrderHistoryScreen />} />
+            <Route path="/order/:id" element={<ProtectedRoutes> <OrderScreen /> </ProtectedRoutes>} />
+            <Route path="orderhistory" element={<ProtectedRoutes> <OrderHistoryScreen /> </ProtectedRoutes>} />
             <Route path='/shipping' element={<ShippingAddressScreen/>} />
             <Route path='/payment' element={<PaymentMethodScreen />} />
+            {/* Admin Routes */}
+            <Route
+                path="/admin/dashboard"
+                element={
+                  <AdminRoute>
+                    <DashboardScreen />
+                  </AdminRoute>
+                }
+              ></Route>
             <Route path='/' element={<HomeScreen />} />
           </Routes>
         </Container>
