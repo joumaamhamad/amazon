@@ -26,6 +26,7 @@ import SearchScreen from './screens/SearchScreen';
 import ProtectedRoutes from './components/ProtectedRoutes';
 import DashboardScreen from './screens/DashboardScreen';
 import AdminRoute from './components/AdminRoute';
+import ProductListScreen from './screens/ProductListScreen';
 
 
 function App() {
@@ -120,15 +121,15 @@ function App() {
                       <NavDropdown.Item>Dashboard</NavDropdown.Item>
                     </LinkContainer>
 
-                    <LinkContainer to="/admin/productlist">
+                    <LinkContainer to="/admin/products">
                       <NavDropdown.Item>Products</NavDropdown.Item>
                     </LinkContainer>
 
-                    <LinkContainer to="/admin/orderlist">
+                    <LinkContainer to="/admin/orders">
                       <NavDropdown.Item>Orders</NavDropdown.Item>
                     </LinkContainer>
 
-                    <LinkContainer to="/admin/userlist">
+                    <LinkContainer to="/admin/users">
                       <NavDropdown.Item>Users</NavDropdown.Item>
                     </LinkContainer>
 
@@ -191,6 +192,14 @@ function App() {
                   </AdminRoute>
                 }
               ></Route>
+              <Route 
+                  path='/admin/products' 
+                  element={
+                    <AdminRoute>
+                      <ProductListScreen />
+                    </AdminRoute>
+                  } 
+                  />
             <Route path='/' element={<HomeScreen />} />
           </Routes>
         </Container>
