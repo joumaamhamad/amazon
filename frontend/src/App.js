@@ -27,6 +27,7 @@ import ProtectedRoutes from './components/ProtectedRoutes';
 import DashboardScreen from './screens/DashboardScreen';
 import AdminRoute from './components/AdminRoute';
 import ProductListScreen from './screens/ProductListScreen';
+import ProductEditScreen from './screens/ProductEditScreen';
 
 
 function App() {
@@ -180,7 +181,7 @@ function App() {
             <Route path='/profile' element={<ProtectedRoutes> <ProfileScreen/> </ProtectedRoutes>}/>
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route path="/order/:id" element={<ProtectedRoutes> <OrderScreen /> </ProtectedRoutes>} />
-            <Route path="orderhistory" element={<ProtectedRoutes> <OrderHistoryScreen /> </ProtectedRoutes>} />
+            <Route path="/orderhistory" element={<ProtectedRoutes> <OrderHistoryScreen /> </ProtectedRoutes>} />
             <Route path='/shipping' element={<ShippingAddressScreen/>} />
             <Route path='/payment' element={<PaymentMethodScreen />} />
             {/* Admin Routes */}
@@ -200,6 +201,15 @@ function App() {
                     </AdminRoute>
                   } 
                   />
+
+              <Route
+                  path="/admin/product/:id"
+                  element={
+                    <AdminRoute>
+                      <ProductEditScreen />
+                    </AdminRoute>
+                  }
+              ></Route>
             <Route path='/' element={<HomeScreen />} />
           </Routes>
         </Container>
