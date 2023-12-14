@@ -91,6 +91,7 @@ return (
                                 <td>{order.isDelivered? order.deliveredAt.substring(0, 10) : 'No' }</td>
                                 <td>
                                     <Button
+                                    className='bg-warning text-dark'
                                         type="button"
                                         variant="light"
                                         onClick={() => {navigate(`/order/${order._id}`);}}
