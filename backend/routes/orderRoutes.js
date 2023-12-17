@@ -25,6 +25,7 @@ orderRouter.post('/' ,isAuth ,expressAsyncHandler( async (req , res) => {
         shippingPrice: req.body.shippingPrice,
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
+        paidAt: Date.now(),
         user: req.user._id,
     })
 
@@ -128,6 +129,7 @@ orderRouter.put( '/:id/deliver', isAuth, expressAsyncHandler(async (req, res) =>
         if (order) {
             order.isDelivered = true;
             order.deliveredAt = Date.now();
+            order.paidAt = Date.now();
             await order.save();
             res.send({ message: 'Order Delivered' });
 
@@ -137,5 +139,18 @@ orderRouter.put( '/:id/deliver', isAuth, expressAsyncHandler(async (req, res) =>
         }
     })
 );
+
+orderRouter.delete('/:id' , isAuth , isAdmin , expressAsyncHandler(async (req , res ) => {
+
+    const order = await Order.findById(req.params.id);
+    if(order){
+        await order.deleteOne();
+        res.send({ message: 'Order Deleted' });
+    }
+
+    else{
+        res.status(404).send({ message: 'Order Not Found' });
+    }
+}))
 
 export default orderRouter;
