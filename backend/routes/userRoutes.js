@@ -3,10 +3,16 @@ import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 import { generateToken } from '../utils.js';
 import expressAsyncHandler from 'express-async-handler';
-import { isAuth } from '../utils.js';
+import { isAuth , isAdmin } from '../utils.js';
 
 
 const userRouter = express.Router();
+
+userRouter.get('/' , expressAsyncHandler(async (req , res) => {
+
+    const users = await User.find({});
+    res.send(users);
+}))
 
 //we have to install package express-async-handler
 userRouter.post('/signin' , expressAsyncHandler( async (req , res) => {
